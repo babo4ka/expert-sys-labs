@@ -1,0 +1,45 @@
+Make_same_width(Gr1, Gr2) :-
+
+send(Gr1, width, Gr2?width).
+
+create_person_dialog :-
+
+new(D, dialog(`Enter new person')),
+
+send(D, append, new(BG, box(0,30)))
+
+send(D, append, new(BI, box(800,0))),
+
+send(D, append, new(F,label)), создание label
+send(D, append, new(Name, text_item(name))),
+
+send(D, append, new(Age, text_item(age))),
+
+send(D, append, new(Sex, menu(sex, marked))),
+
+send(F, append, `To begin testing enter its name and age and press button У Create У.'),
+
+send(Sex, append, female),
+
+send(Sex, append, male),
+
+send(Age, type, int),
+
+send(D, append,
+
+button(create, message(@prolog, create_person,
+
+Name?selection,
+Age?selection,
+
+Sex?selection))),
+
+send(D, default_button, create),send(D, open).
+
+Create_person(Name, Age, Sex) :-
+
+writeln(`----------------------------------------------------------------`),
+
+format(`Student ~w person ~w of ~d years old your estimation -`,
+
+[Sex, Name, Age]). формат вывода данных:- create_person_dialog.

@@ -7,11 +7,13 @@ show_tabs_interface :-
 
     send_list(Tabs, append,
         [tab('Вкладка 1',
-            new(Text1, text_item('Текст 1')),
+            new(Text1, text_item('Текст 1', '')),
+            button('Нажми меня', message(@prolog, button_action, Text1?selection)),
             new(Label1, label('Результат:'))
         ),
         tab('Вкладка 2',
-            new(Text2, text_item('Текст 2')),
+            new(Text2, text_item('Текст 2', '')),
+            button('Кнопка', message(@prolog, button_action, Text2?selection)),
             new(Label2, label('Результат 2:'))
         )]
     ),
