@@ -1,25 +1,30 @@
 :- use_module(library(pce)).
 
-show_tabs_interface :-
-    new(TabDialog, dialog('Пример интерфейса с вкладками')),
-    send(TabDialog, append, new(Tabs, tab)),
+forma :-
+new(Dialog, dialog('Лаба 21.03.2024')),
+send_list(Dialog, append,
+[ new(N, text_item(имя)),
+ new(I, new(I, menu(интересы))),
+ button(выход, message(Dialog, destroy)),
+ button('любит что', and(message(@prolog,
+ vivod,
+ N?selection,
+ I?selection),
+ message(Dialog, destroy)))
+ ]),
+ send_list(I, append, [плавание, рыбалка, охота, дайвинг, готовка]),
+ send(Dialog, default_button, 'любит что'),
+ send(Dialog, open).
 
+vivod(Name, Interes):-
+new(Dialog, dialog(answer)),
+send_list(Dialog, append,
+[new(text(Name)),
+ new(text(любит)),
+ new(text(Interes))
+]),
+send(Dialog, open).
 
-    send_list(Tabs, append,
-        [tab('Вкладка 1',
-            new(Text1, text_item('Текст 1')),
-            new(Label1, label('Результат:'))
-        ),
-        tab('Вкладка 2',
-            new(Text2, text_item('Текст 2')),
-            new(Label2, label('Результат 2:'))
-        )]
-    ),
-
-    send(Tabs, open).
-
-
-button_action(Text) :-
-    get(Text, selection, TextValue),
-    write('Вы ввели: '), write(TextValue), nl.
-
+ vivod_rezultata(Name, Interes) :-
+ format('~w любит ~w~n',
+ [ Name, Interes]).
